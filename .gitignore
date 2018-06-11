@@ -90,9 +90,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# bin directory
-bin/
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -105,3 +102,9 @@ bin/
 
 # mypy
 .mypy_cache/
+
+# bin directory
+bin/
+
+# config
+config.py

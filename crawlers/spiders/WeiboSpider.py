@@ -6,11 +6,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+import config
 from utils import crawler_util
 
 
 class WeiboSpider(scrapy.Spider):
-
 	name = 'WeiboSpider'
 	allowed_domains = ['weibo.com', ]
 
@@ -21,12 +21,12 @@ class WeiboSpider(scrapy.Spider):
 		"""
 		chrome = crawler_util.create_chrome_driver()
 		chrome.get(self.weibo_url)
-		login_name_xpath = '//div[@class="input_wrap"]/input[@id="loginname"]'
-		WebDriverWait(chrome, 10).until(expected_conditions.presence_of_element_located((By.XPATH, login_name_xpath)))
+		login_name_xpath = '//input[@id="loginname"]'
+		WebDriverWait(chrome, 10).until(expected_conditions.presence_of_element_located((By.XPATH, '//input[@id="loginname"]')))
 
-		chrome.find_element_by_xpath(login_name_xpath).send_keys("sXXXXXXX")
-		chrome.find_element_by_name("password").send_keys("kXXXXXXX")
-		chrome.find_element_by_xpath("//div[@id='pl_login_form']/div/div[3]/div[6]/a/span").click()
+		chrome.find_element_by_xpath(login_name_xpath).send_keys(config.weibo_user_name)
+		chrome.find_element_by_name('password').send_keys(config.weibo_password)
+		chrome.find_element_by_xpath('//input[@id="loginname"]').click()
 
 		return chrome.get_cookies()
 
