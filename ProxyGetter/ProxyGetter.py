@@ -86,9 +86,9 @@ def __get_proxies(from_url):
 
 
 def __update_pool(raw_proxies):
-	threadCount = __PROXIES_CHECK_THREAD_COUNT
-	perthread = int(len(raw_proxies) / threadCount)
-	for proxy_page in [raw_proxies[threadNum * perthread::(threadNum + 1) * perthread - 1] for threadNum in range(threadCount)]:
+	thread_count = __PROXIES_CHECK_THREAD_COUNT
+	per_thread = int(len(raw_proxies) / thread_count)
+	for proxy_page in [raw_proxies[thread_num * per_thread::(thread_num + 1) * per_thread - 1] for thread_num in range(thread_count)]:
 		threading.Thread(target=__check_proxies_and_update_pool, args=(proxy_page,)).start()
 
 	if not __EVENT_PROXY_CHECK_FINISHED.isSet():
